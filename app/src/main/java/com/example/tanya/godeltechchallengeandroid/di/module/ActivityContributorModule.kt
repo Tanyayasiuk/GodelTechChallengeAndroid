@@ -5,8 +5,8 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class ActivityBuilder {
+interface ActivityContributorModule {
 
-    @ContributesAndroidInjector
-    abstract fun bindStartActivity (): StartActivity
+    @ContributesAndroidInjector(modules = [UiModule.StartModule::class])
+    fun startActivity (): StartActivity
 }

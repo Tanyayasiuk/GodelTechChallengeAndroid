@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 const val PREFS_NAME = "godeltechchallengeandroid_prefs"
 
-class Prefs
+class ApplicationPreferences
 @Inject
 constructor(private var prefs: SharedPreferences) {
 
