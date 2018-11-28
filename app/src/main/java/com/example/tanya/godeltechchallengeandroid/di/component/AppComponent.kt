@@ -1,25 +1,19 @@
 package com.example.tanya.godeltechchallengeandroid.di.component
 
-import com.example.tanya.godeltechchallengeandroid.App
-import com.example.tanya.godeltechchallengeandroid.di.module.ActivityBuilder
+import com.example.tanya.godeltechchallengeandroid.di.module.ActivityContributorModule
 import com.example.tanya.godeltechchallengeandroid.di.module.AppModule
-import com.example.tanya.godeltechchallengeandroid.di.module.StartModule
-import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
-import javax.inject.Singleton
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
+import com.example.tanya.godeltechchallengeandroid.App
 
-@Singleton
-@Component(modules= [AppModule::class, AndroidInjectionModule::class, ActivityBuilder::class, StartModule::class])
-interface AppComponent {
-
+@Component(
+    modules = [
+        AndroidSupportInjectionModule::class,
+        AppModule::class,
+        ActivityContributorModule::class]
+)
+internal interface AppComponent : AndroidInjector<App> {
     @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: App): Builder
-
-        fun build(): AppComponent
-    }
-
-    fun inject (app: App)
+    abstract class Builder : AndroidInjector.Builder<App>()
 }

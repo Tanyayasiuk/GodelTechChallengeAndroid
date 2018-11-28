@@ -1,21 +1,13 @@
 package com.example.tanya.godeltechchallengeandroid
 
-import android.app.Activity
-import android.app.Application
 import com.example.tanya.godeltechchallengeandroid.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import javax.inject.Inject
+import dagger.android.DaggerApplication
 
-class App : Application(),HasActivityInjector {
-    @Inject
-    lateinit var activityInjector : DispatchingAndroidInjector<Activity>
 
-    override fun onCreate() {
-        super.onCreate()
-        DaggerAppComponent.builder().application(this).build().inject(this)
+class App : DaggerApplication() {
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder().create(this);
     }
-
-    override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 }
