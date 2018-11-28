@@ -2,16 +2,16 @@ package com.example.tanya.godeltechchallengeandroid.di.module
 
 import com.example.tanya.godeltechchallengeandroid.ui.start.StartContract
 import com.example.tanya.godeltechchallengeandroid.ui.start.StartPresenter
-import com.example.tanya.godeltechchallengeandroid.util.Prefs
 import dagger.Module
-import dagger.Provides
-
+import dagger.Binds
 
 @Module
-class StartModule {
+class UiModule {
 
-    @Provides
-    fun providePresenter(prefs: Prefs): StartContract.Presenter {
-        return StartPresenter(prefs)
+    @Module
+    abstract class StartModule {
+
+        @Binds
+        abstract fun provideStartPresenter(startPresenter: StartPresenter): StartContract.Presenter
     }
 }

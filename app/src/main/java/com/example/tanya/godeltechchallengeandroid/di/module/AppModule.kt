@@ -4,7 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import android.content.SharedPreferences
-import com.example.tanya.godeltechchallengeandroid.util.PREFS_NAME
+import com.example.tanya.godeltechchallengeandroid.data.PREFS_NAME
 import android.app.Application
 import dagger.Binds
 import com.example.tanya.godeltechchallengeandroid.App

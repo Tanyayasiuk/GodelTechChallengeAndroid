@@ -1,4 +1,4 @@
-package com.example.tanya.godeltechchallengeandroid.util
+package com.example.tanya.godeltechchallengeandroid.data
 
 import android.content.SharedPreferences
 import javax.inject.Inject
