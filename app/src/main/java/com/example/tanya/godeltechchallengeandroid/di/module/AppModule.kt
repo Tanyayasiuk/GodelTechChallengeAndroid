@@ -6,7 +6,8 @@ import dagger.Provides
 import android.app.Application
 import dagger.Binds
 import com.example.tanya.godeltechchallengeandroid.App
-import com.example.tanya.godeltechchallengeandroid.data.ApplicationPreferences
+import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationPreferences
+import com.example.tanya.godeltechchallengeandroid.data.prefs.PreferenceStorage
 import javax.inject.Singleton
 
 
@@ -24,7 +25,7 @@ abstract class AppModule {
         @JvmStatic
         @Provides
         @Singleton
-        fun providesPreferenceStorage(context: Context): ApplicationPreferences =
+        fun providesPreferenceStorage(context: Context): PreferenceStorage =
             ApplicationPreferences(context)
     }
 

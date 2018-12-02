@@ -1,20 +1,18 @@
 package com.example.tanya.godeltechchallengeandroid.ui.start
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.example.tanya.godeltechchallengeandroid.R
-import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_start.*
 import javax.inject.Inject
 
-class StartActivity : AppCompatActivity(), StartContract.View {
+class StartActivity : DaggerAppCompatActivity(), StartContract.View {
 
     @Inject lateinit var presenter: StartContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
@@ -26,7 +24,21 @@ class StartActivity : AppCompatActivity(), StartContract.View {
     override fun navigateToHomeScreen() {
         //TODO: implement navigating to Home screen
         Toast.makeText(this, resources.getText(R.string.loading_done), Toast.LENGTH_SHORT).show()
+        hideProgress()
+    }
+
+    override fun showError(errorMessage: String) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+        hideProgress()
+    }
+
+    private fun hideProgress() {
         progress_bar.visibility = View.INVISIBLE
         lbl_loading.visibility = View.INVISIBLE
+    }
+
+    override fun onDestroy() {
+        presenter.destroy()
+        super.onDestroy()
     }
 }

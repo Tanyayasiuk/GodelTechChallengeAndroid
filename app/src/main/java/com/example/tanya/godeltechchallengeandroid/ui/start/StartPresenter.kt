@@ -1,14 +1,18 @@
 package com.example.tanya.godeltechchallengeandroid.ui.start
 
-import android.os.Handler
-import com.example.tanya.godeltechchallengeandroid.util.Prefs
+import com.example.tanya.godeltechchallengeandroid.domain.interactor.GetStartStatus
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class StartPresenter
-    @Inject
-    constructor(private val prefs: Prefs): StartContract.Presenter {
+@Inject
+constructor(private val getStartStatus: GetStartStatus) : StartContract.Presenter {
 
-    private lateinit var view: StartContract.View
+    private var view: StartContract.View? = null
+    private val disposables = CompositeDisposable()
 
     override fun bindView(view: StartContract.View) {
         this.view = view
@@ -16,12 +20,21 @@ class StartPresenter
 
     /*Imitating data loading*/
     override fun loadData() {
-        Handler().postDelayed(
-            {
-                prefs.isFirstStart = false
-                view.navigateToHomeScreen()
-            },
-            5000
-        )
+
+        val subscription = getStartStatus.execute()
+                                        .delay(5000, TimeUnit.MILLISECONDS)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe({
+                                            view?.navigateToHomeScreen()
+                                        }, {
+                                            view?.showError(it.localizedMessage)
+                                        })
+        disposables.add(subscription)
+    }
+
+    override fun destroy() {
+        this.disposables.clear()
+        this.view = null
     }
 }
