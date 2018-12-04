@@ -1,6 +1,6 @@
 package com.example.tanya.godeltechchallengeandroid.ui.start
 
-import com.example.tanya.godeltechchallengeandroid.domain.interactor.GetStartStatus
+import com.example.tanya.godeltechchallengeandroid.domain.interactor.SetStartStatus
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class StartPresenter
 @Inject
-constructor(private val getStartStatus: GetStartStatus) : StartContract.Presenter {
+constructor(private val setStartStatus: SetStartStatus) : StartContract.Presenter {
 
     private var view: StartContract.View? = null
     private val disposables = CompositeDisposable()
@@ -21,15 +21,16 @@ constructor(private val getStartStatus: GetStartStatus) : StartContract.Presente
     /*Imitating data loading*/
     override fun loadData() {
 
-        val subscription = getStartStatus.execute()
-                                        .delay(5000, TimeUnit.MILLISECONDS)
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribe({
-                                            view?.navigateToHomeScreen()
-                                        }, {
-                                            view?.showError(it.localizedMessage)
-                                        })
+        val subscription = setStartStatus
+                                .execute(false)
+                                .delay(5000, TimeUnit.MILLISECONDS)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({
+                                    view?.navigateToHomeScreen()
+                                }, {
+                                    view?.showError(it.localizedMessage)
+                                })
         disposables.add(subscription)
     }
 
