@@ -21,7 +21,7 @@ constructor(private val setStartStatus: SetStartStatus) : StartContract.Presente
     /*Imitating data loading*/
     override fun loadData() {
 
-        val subscription = setStartStatus
+        val disposable = setStartStatus
                                 .execute(false)
                                 .delay(5000, TimeUnit.MILLISECONDS)
                                 .subscribeOn(Schedulers.io())
@@ -31,7 +31,7 @@ constructor(private val setStartStatus: SetStartStatus) : StartContract.Presente
                                 }, {
                                     view?.showError(it.localizedMessage)
                                 })
-        disposables.add(subscription)
+        disposables.add(disposable)
     }
 
     override fun destroy() {

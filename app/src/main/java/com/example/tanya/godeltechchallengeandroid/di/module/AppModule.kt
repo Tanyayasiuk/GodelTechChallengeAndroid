@@ -6,12 +6,13 @@ import dagger.Provides
 import android.app.Application
 import dagger.Binds
 import com.example.tanya.godeltechchallengeandroid.App
-import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationPreferences
-import com.example.tanya.godeltechchallengeandroid.data.prefs.PreferenceStorage
+import com.example.tanya.godeltechchallengeandroid.api.ApiModule
+import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepositoryImpl
+import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepository
 import javax.inject.Singleton
 
 
-@Module
+@Module(includes = [ApiModule::class])
 abstract class AppModule {
 
     @Binds
@@ -20,13 +21,7 @@ abstract class AppModule {
     @Binds
     abstract fun bindContext(application: Application): Context
 
-    @Module
-    companion object {
-        @JvmStatic
-        @Provides
-        @Singleton
-        fun providesPreferenceStorage(context: Context): PreferenceStorage =
-            ApplicationPreferences(context)
-    }
+    @Binds
+    abstract fun bindApplicationRepository(applicationRepositoryImpl: ApplicationRepositoryImpl): ApplicationRepository
 
 }
