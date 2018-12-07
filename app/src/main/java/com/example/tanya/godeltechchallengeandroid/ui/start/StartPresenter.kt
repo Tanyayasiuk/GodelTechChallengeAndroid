@@ -20,7 +20,6 @@ constructor(private val setStartStatus: SetStartStatus) : StartContract.Presente
 
     /*Imitating data loading*/
     override fun loadData() {
-
         val disposable = setStartStatus
                                 .execute(false)
                                 .delay(5000, TimeUnit.MILLISECONDS)

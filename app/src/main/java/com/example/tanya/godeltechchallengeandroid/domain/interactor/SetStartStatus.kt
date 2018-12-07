@@ -1,13 +1,14 @@
 package com.example.tanya.godeltechchallengeandroid.domain.interactor
 
 import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepository
+import com.example.tanya.godeltechchallengeandroid.domain.rx.NoValue
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class SetStartStatus
-@Inject constructor(private val prefs: ApplicationRepository): BaseUseCase<Boolean, Unit>() {
+open class SetStartStatus
+@Inject constructor(private val applicationRepository: ApplicationRepository): BaseUseCase<Boolean, Unit>() {
     override fun createObservable(input: Boolean?): Observable<Unit> {
-        prefs.isFirstStart = input!!
+        applicationRepository.isFirstStart = input!!
         return Observable.just(Unit)
     }
 }
