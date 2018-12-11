@@ -1,9 +1,11 @@
 package com.example.tanya.godeltechchallengeandroid.ui.start
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.tanya.godeltechchallengeandroid.R
+import com.example.tanya.godeltechchallengeandroid.ui.next.HomeActivity
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_start.*
 import javax.inject.Inject
@@ -25,6 +27,8 @@ class StartActivity : DaggerAppCompatActivity(), StartContract.View {
         //TODO: implement navigating to Home screen
         Toast.makeText(this, resources.getText(R.string.loading_done), Toast.LENGTH_SHORT).show()
         hideProgress()
+
+        startActivity(Intent(this, HomeActivity::class.java))
     }
 
     override fun showError(errorMessage: String) {

@@ -3,6 +3,7 @@ package com.example.tanya.godeltechchallengeandroid.ui.start
 import com.example.tanya.godeltechchallengeandroid.RxSchedulerRule
 import com.example.tanya.godeltechchallengeandroid.domain.interactor.SetStartStatus
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
 import io.reactivex.subjects.PublishSubject
 import org.junit.Assert
 import org.junit.Before
@@ -27,6 +28,7 @@ class StartPresenterTest {
     private lateinit var presenter: StartContract.Presenter
     private var result = PublishSubject.create<Unit>()
 
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -37,22 +39,21 @@ class StartPresenterTest {
 
     @Test
     fun onLoadDataSuccess_shouldNavigateToHomeScreen() {
-        result.onNext(Unit)
         presenter.loadData()
+        result.onNext(Unit)
 
         Assert.assertEquals(result, setStartStatus.execute(anyBoolean()))
 
-        //todo: figure out how to test view
-        //Mockito.verify(view).navigateToHomeScreen()
-        //Mockito.verifyNoMoreInteractions(view)
+        verify(view).navigateToHomeScreen()
+        verifyNoMoreInteractions(view)
     }
 
     @Test
     fun onLoadDataError_shouldShowError() {
         val throwable = Throwable("Error")
-        result.onError(throwable)
 
         presenter.loadData()
+        result.onError(throwable)
 
         verify(view).showError(throwable.localizedMessage)
     }
