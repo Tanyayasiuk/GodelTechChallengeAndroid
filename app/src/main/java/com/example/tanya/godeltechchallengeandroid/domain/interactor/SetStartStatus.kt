@@ -1,7 +1,6 @@
 package com.example.tanya.godeltechchallengeandroid.domain.interactor
 
 import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepository
-import com.example.tanya.godeltechchallengeandroid.domain.rx.NoValue
 import io.reactivex.Observable
 import javax.inject.Inject
 
