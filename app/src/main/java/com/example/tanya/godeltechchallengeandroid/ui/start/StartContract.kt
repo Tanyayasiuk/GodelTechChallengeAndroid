@@ -9,7 +9,6 @@ interface StartContract {
 
     interface Presenter {
         fun bindView(view: View)
-        fun loadData()
         fun destroy()
     }
 }

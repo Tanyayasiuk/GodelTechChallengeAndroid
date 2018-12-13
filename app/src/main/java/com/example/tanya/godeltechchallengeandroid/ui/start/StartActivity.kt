@@ -19,16 +19,14 @@ class StartActivity : DaggerAppCompatActivity(), StartContract.View {
         setContentView(R.layout.activity_start)
 
         presenter.bindView(this)
-
-        presenter.loadData()
     }
 
     override fun navigateToHomeScreen() {
-        //TODO: implement navigating to Home screen
         Toast.makeText(this, resources.getText(R.string.loading_done), Toast.LENGTH_SHORT).show()
         hideProgress()
 
         startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 
     override fun showError(errorMessage: String) {

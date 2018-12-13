@@ -1,36 +1,37 @@
 package com.example.tanya.godeltechchallengeandroid.ui.start
 
-import com.example.tanya.godeltechchallengeandroid.domain.interactor.SetStartStatus
+import com.example.tanya.godeltechchallengeandroid.domain.interactor.StartupUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class StartPresenter
 @Inject
-constructor(private val setStartStatus: SetStartStatus) : StartContract.Presenter {
+constructor(private val startupUseCase: StartupUseCase) : StartContract.Presenter {
 
     private var view: StartContract.View? = null
     private val disposables = CompositeDisposable()
 
     override fun bindView(view: StartContract.View) {
         this.view = view
+
+        loadData()
     }
 
     /*Imitating data loading*/
-    override fun loadData() {
-        val disposable = setStartStatus
-                                .execute(false)
-                                .delay(5000, TimeUnit.MILLISECONDS)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe({
-                                    view?.navigateToHomeScreen()
-                                }, {
-                                    view?.showError(it.localizedMessage)
-                                })
-        disposables.add(disposable)
+    private fun loadData() {
+        startupUseCase
+                .execute()
+                .delay(5000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    view?.navigateToHomeScreen()
+                }, {
+                    view?.showError(it.localizedMessage)
+                })
+                .addTo(disposables)
     }
 
     override fun destroy() {
