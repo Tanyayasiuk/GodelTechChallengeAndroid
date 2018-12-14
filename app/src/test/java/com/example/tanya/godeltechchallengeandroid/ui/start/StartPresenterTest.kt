@@ -2,6 +2,7 @@ package com.example.tanya.godeltechchallengeandroid.ui.start
 
 import com.example.tanya.godeltechchallengeandroid.RxSchedulerRule
 import com.example.tanya.godeltechchallengeandroid.domain.interactor.StartupUseCase
+import com.example.tanya.godeltechchallengeandroid.util.TimeUnit
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
 import io.reactivex.subjects.PublishSubject
@@ -23,6 +24,8 @@ class StartPresenterTest {
     private lateinit var startupUseCase: StartupUseCase
     @Mock
     private lateinit var view: StartContract.View
+    @Mock
+    private lateinit var timeUnit: TimeUnit
 
     private lateinit var presenter: StartContract.Presenter
     private var result = PublishSubject.create<Unit>()
@@ -31,7 +34,7 @@ class StartPresenterTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = StartPresenter(startupUseCase)
+        presenter = StartPresenter(startupUseCase, timeUnit)
         Mockito.`when`(startupUseCase.execute()).thenReturn(result)
     }
 

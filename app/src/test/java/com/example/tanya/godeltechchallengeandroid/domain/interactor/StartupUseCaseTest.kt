@@ -21,7 +21,8 @@ class StartupUseCaseTest {
 
     @Test
     fun onStartup_shouldUpdateApplicationRepository() {
-        startupUseCase.execute().test()
+        startupUseCase.execute()
+            .test()
             .assertComplete()
             .assertNoErrors()
 
