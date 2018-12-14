@@ -24,8 +24,6 @@ class StartPresenterTest {
     private lateinit var startupUseCase: StartupUseCase
     @Mock
     private lateinit var view: StartContract.View
-    @Mock
-    private lateinit var timeUnit: TimeUnit
 
     private lateinit var presenter: StartContract.Presenter
     private var result = PublishSubject.create<Unit>()
@@ -34,7 +32,7 @@ class StartPresenterTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = StartPresenter(startupUseCase, timeUnit)
+        presenter = StartPresenter(startupUseCase, TimeUnit(5000, java.util.concurrent.TimeUnit.MILLISECONDS))
         Mockito.`when`(startupUseCase.execute()).thenReturn(result)
     }
 
