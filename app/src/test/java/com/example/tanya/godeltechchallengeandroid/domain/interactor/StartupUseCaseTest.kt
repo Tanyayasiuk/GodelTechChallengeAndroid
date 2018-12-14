@@ -7,26 +7,24 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
-class SetStartStatusTest {
+class StartupUseCaseTest {
 
     @Mock
     private lateinit var applicationRepository: ApplicationRepository
-    private lateinit var setStartStatus: SetStartStatus
-
-    private val testValue = true
+    private lateinit var startupUseCase: StartupUseCase
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        setStartStatus = SetStartStatus(applicationRepository)
+        startupUseCase = StartupUseCase(applicationRepository)
     }
 
     @Test
-    fun onSetStartStatus_shouldUpdateApplicationRepository() {
-        setStartStatus.execute(testValue)
+    fun onStartup_shouldUpdateApplicationRepository() {
+        startupUseCase.execute().test()
+            .assertComplete()
+            .assertNoErrors()
 
-        Mockito.verify(applicationRepository).isFirstStart = testValue
-        Mockito.verifyNoMoreInteractions(applicationRepository)
+        Mockito.verify(applicationRepository).isFirstStart
     }
-
 }

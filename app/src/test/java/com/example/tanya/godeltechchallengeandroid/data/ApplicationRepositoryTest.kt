@@ -25,7 +25,7 @@ class ApplicationRepositoryTest {
     }
 
     @Test
-    fun onIsFirstStartSet_shouldPreferenceApiUpdate() {
+    fun onIsFirstStartSet_shouldUpdatePreferenceApi() {
         applicationRepository.isFirstStart = testValue
 
         Mockito.verify(preferenceApi).setBoolean("isFirstStart", testValue)
