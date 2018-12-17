@@ -5,7 +5,7 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.example.tanya.godeltechchallengeandroid.ui.next.HomeActivity
+import com.example.tanya.godeltechchallengeandroid.ui.next.MainActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -25,6 +25,6 @@ class StartActivityTest {
 
     @Test
     fun navigateToHomeScreen() {
-        intended(hasComponent(HomeActivity::class.java.name))
+        intended(hasComponent(MainActivity::class.java.name))
     }
 }

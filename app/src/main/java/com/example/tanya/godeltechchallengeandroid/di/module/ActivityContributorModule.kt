@@ -2,7 +2,9 @@ package com.example.tanya.godeltechchallengeandroid.di.module
 
 import android.content.res.Resources
 import com.example.tanya.godeltechchallengeandroid.R
-import com.example.tanya.godeltechchallengeandroid.ui.next.HomeActivity
+import com.example.tanya.godeltechchallengeandroid.ui.next.MainActivity
+import com.example.tanya.godeltechchallengeandroid.ui.next.MainContract
+import com.example.tanya.godeltechchallengeandroid.ui.next.MainPresenter
 import com.example.tanya.godeltechchallengeandroid.ui.start.StartActivity
 import com.example.tanya.godeltechchallengeandroid.ui.start.StartContract
 import com.example.tanya.godeltechchallengeandroid.ui.start.StartPresenter
@@ -19,10 +21,13 @@ interface ActivityContributorModule {
     fun startActivity(): StartActivity
 
     @ContributesAndroidInjector
-    fun homeActivity(): HomeActivity
+    fun mainActivity(): MainActivity
 
     @Binds
     fun bindsStartPresenter(startPresenter: StartPresenter): StartContract.Presenter
+
+    @Binds
+    fun bindsMainPresenter(mainPresenter: MainPresenter): MainContract.Presenter
 
     @Module
     class StartModule {
