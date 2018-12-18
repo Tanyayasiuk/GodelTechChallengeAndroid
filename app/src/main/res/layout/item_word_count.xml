@@ -30,7 +30,7 @@
         android:gravity="center"
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="invisible"
+        android:visibility="visible"
         tools:text="1000"/>
 
     <ProgressBar
@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         style="?android:attr/progressBarStyleSmall"
         app:layout_constraintStart_toEndOf="@id/guideline"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/txt_word"
         app:layout_constraintBottom_toBottomOf="@id/txt_word"/>

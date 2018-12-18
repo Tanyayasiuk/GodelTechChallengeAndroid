@@ -5,7 +5,7 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.example.tanya.godeltechchallengeandroid.ui.next.MainActivity
+import com.example.tanya.godeltechchallengeandroid.ui.main.MainActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain

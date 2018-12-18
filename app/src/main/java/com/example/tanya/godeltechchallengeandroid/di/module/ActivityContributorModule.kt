@@ -2,9 +2,9 @@ package com.example.tanya.godeltechchallengeandroid.di.module
 
 import android.content.res.Resources
 import com.example.tanya.godeltechchallengeandroid.R
-import com.example.tanya.godeltechchallengeandroid.ui.next.MainActivity
-import com.example.tanya.godeltechchallengeandroid.ui.next.MainContract
-import com.example.tanya.godeltechchallengeandroid.ui.next.MainPresenter
+import com.example.tanya.godeltechchallengeandroid.ui.main.MainActivity
+import com.example.tanya.godeltechchallengeandroid.ui.main.MainContract
+import com.example.tanya.godeltechchallengeandroid.ui.main.MainPresenter
 import com.example.tanya.godeltechchallengeandroid.ui.start.StartActivity
 import com.example.tanya.godeltechchallengeandroid.ui.start.StartContract
 import com.example.tanya.godeltechchallengeandroid.ui.start.StartPresenter

@@ -1,11 +1,13 @@
-package com.example.tanya.godeltechchallengeandroid.ui.next
+package com.example.tanya.godeltechchallengeandroid.ui.main
+
+import com.example.tanya.godeltechchallengeandroid.domain.entity.Word
 
 interface MainContract {
 
     interface View {
-        fun showText(text: String) //TODO: to be done
+        fun showData(set: MutableMap<String, Int>) //TODO: to be done
+        fun addData(item: Word)
         fun showError(message: String)
-        fun showErrorInvalidUrl()
     }
 
     interface Presenter{

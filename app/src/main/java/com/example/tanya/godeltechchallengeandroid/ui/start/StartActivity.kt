@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.tanya.godeltechchallengeandroid.R
-import com.example.tanya.godeltechchallengeandroid.ui.next.MainActivity
+import com.example.tanya.godeltechchallengeandroid.ui.main.MainActivity
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_start.*
 import javax.inject.Inject

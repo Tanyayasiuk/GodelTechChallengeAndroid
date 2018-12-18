@@ -1,9 +1,9 @@
-package com.example.tanya.godeltechchallengeandroid.ui.next
+package com.example.tanya.godeltechchallengeandroid.ui.main
 
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.widget.Toast
 import com.example.tanya.godeltechchallengeandroid.R
+import com.example.tanya.godeltechchallengeandroid.domain.entity.Word
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -11,6 +11,7 @@ import javax.inject.Inject
 class MainActivity: DaggerAppCompatActivity(), MainContract.View {
 
     @Inject lateinit var presenter: MainPresenter
+    @Inject lateinit var wordAdapter: WordAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,7 @@ class MainActivity: DaggerAppCompatActivity(), MainContract.View {
             presenter.loadFile(getUrlFromEditText())
         }
 
-        helper.movementMethod = ScrollingMovementMethod()
+        rv_words_counts.adapter = wordAdapter
     }
 
     private fun getUrlFromEditText(): String {
@@ -37,12 +38,12 @@ class MainActivity: DaggerAppCompatActivity(), MainContract.View {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
-    override fun showText(text: String) {
-        helper.text = text
+    override fun showData(set: MutableMap<String, Int>) {
+        wordAdapter.setItems(set)
     }
 
-    override fun showErrorInvalidUrl() {
-        edt_url.error = "Please check the url" //TODO: Replace with the String resource
+    override fun addData(item: Word) {
+        wordAdapter.addItem(item)
     }
 
     override fun onDestroy() {

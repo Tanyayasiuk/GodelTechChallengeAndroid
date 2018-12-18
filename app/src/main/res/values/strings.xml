@@ -2,6 +2,6 @@
     <string name="app_name">GodelTechChallengeAndroid</string>
     <string name="loading">loading…</string>
     <string name="loading_done">Loading finished successfully</string>
-    <string name="default_url">http://www.textfiles.com/100/adventur.txt</string>
+    <string name="default_url">http://www.textfiles.com/news/pump.txt</string>
     <string name="button_start_loading">start</string>
 </resources>
