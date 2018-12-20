@@ -1,19 +1,25 @@
 package com.example.tanya.godeltechchallengeandroid.ui.main
 
 import com.example.tanya.godeltechchallengeandroid.domain.entity.Word
+import io.reactivex.Observable
 
 interface MainContract {
 
     interface View {
-        fun showData(set: MutableMap<String, Int>) //TODO: to be done
-        fun addData(item: Word)
-        fun showError(message: String)
+        fun getUrlChangeObservable(): Observable<String>
+        fun getStartButtonClickObservable(): Observable<Any>
+        fun setViewState(viewState: ViewState)
     }
 
     interface Presenter{
-        //TODO: move repeated methods to some base structure
         fun bindView(view: View)
-        fun loadFile(url: String)
         fun destroy()
+    }
+
+    sealed class ViewState {
+        object Started: ViewState()
+        data class ResultReceived(val words: List<Word>): ViewState()
+        data class Failed(val throwable: Throwable): ViewState()
+        object Completed: ViewState()
     }
 }

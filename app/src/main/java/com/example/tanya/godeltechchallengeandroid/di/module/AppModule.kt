@@ -7,12 +7,18 @@ import com.example.tanya.godeltechchallengeandroid.App
 import com.example.tanya.godeltechchallengeandroid.api.ApiModule
 import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepository
 import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepositoryImpl
+import com.example.tanya.godeltechchallengeandroid.domain.DomainModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
 
-@Module(includes = [ApiModule::class])
+@Module(
+    includes = [
+        ApiModule::class,
+        DomainModule::class
+    ]
+)
 abstract class AppModule {
 
     @Binds
@@ -26,9 +32,10 @@ abstract class AppModule {
 
     @Module
     companion object {
-        @Provides @JvmStatic
+        @Provides
+        @JvmStatic
         fun provideResources(context: Context): Resources =
-                context.resources
+            context.resources
     }
 
 }

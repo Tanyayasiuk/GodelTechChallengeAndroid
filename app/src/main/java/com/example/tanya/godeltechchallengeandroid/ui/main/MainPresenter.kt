@@ -1,15 +1,16 @@
 package com.example.tanya.godeltechchallengeandroid.ui.main
 
-import com.example.tanya.godeltechchallengeandroid.domain.interactor.DownloadFileUseCase
-import com.example.tanya.godeltechchallengeandroid.domain.interactor.ParseTextUseCase
+import com.example.tanya.godeltechchallengeandroid.domain.DomainContract
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.withLatestFrom
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MainPresenter
-    @Inject constructor(private val downloadFileUseCase: DownloadFileUseCase,
-                        private val parseTextUseCase: ParseTextUseCase)
+    @Inject constructor(private val countWordsUseCase: DomainContract.CountWordsUseCase)
     : MainContract.Presenter {
 
     private var view: MainContract.View? = null
@@ -17,21 +18,23 @@ class MainPresenter
 
     override fun bindView(view: MainContract.View) {
         this.view = view
-    }
 
-    override fun loadFile(url: String) {
-        downloadFileUseCase.execute(url)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                parseTextUseCase.execute(it)
-                    .subscribe({ word ->
-                        view?.addData(word) //TODO: change with recyclerView fulfilling
-                    }, { throwable ->
-                        view?.showError(throwable.localizedMessage)
-                    })
-            }, {
-                view?.showError(it.localizedMessage)
-            })
+        view.getStartButtonClickObservable()
+            .withLatestFrom(view.getUrlChangeObservable()) { _, url -> url }
+            .flatMap {url ->
+                countWordsUseCase
+                    .execute(url)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe { view.setViewState(MainContract.ViewState.Started) }
+                    .doOnNext { view.setViewState(MainContract.ViewState.ResultReceived(it)) }
+                    .doOnError { view.setViewState(MainContract.ViewState.Failed(it)) }
+                    .doOnComplete { view.setViewState(MainContract.ViewState.Completed) }
+                    .onErrorResumeNext { th: Throwable ->
+                        Observable.empty()
+                    }
+            }
+            .subscribe()
             .addTo(disposables)
     }
 
