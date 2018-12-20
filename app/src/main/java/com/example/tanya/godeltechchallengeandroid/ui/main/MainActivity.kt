@@ -33,9 +33,9 @@ class MainActivity: DaggerAppCompatActivity(), MainContract.View {
 
     override fun setViewState(viewState: MainContract.ViewState) {
         when (viewState) {
-            is MainContract.ViewState.Started -> handleStartedViewState(viewState)
+            is MainContract.ViewState.Started -> handleStartedViewState()
             is MainContract.ViewState.ResultReceived -> handleResultReceivedViewState(viewState)
-            is MainContract.ViewState.Completed -> handleSucceedViewState(viewState)
+            is MainContract.ViewState.Completed -> handleSucceedViewState()
             is MainContract.ViewState.Failed -> handleFailedViewState(viewState)
         }
     }
@@ -45,22 +45,24 @@ class MainActivity: DaggerAppCompatActivity(), MainContract.View {
         super.onDestroy()
     }
 
-    private fun handleStartedViewState(viewState: MainContract.ViewState.Started){
-        btn_start.isEnabled = false
-        edt_url.isEnabled = false
+    private fun handleStartedViewState(){
+        setControlsEnabled(false)
     }
 
     private fun handleResultReceivedViewState(viewState: MainContract.ViewState.ResultReceived){
         wordAdapter.setItems(viewState.words)
     }
 
-    private fun handleSucceedViewState(viewState: MainContract.ViewState.Completed) {
-        btn_start.isEnabled = true
-        edt_url.isEnabled = true
+    private fun handleSucceedViewState() {
+        setControlsEnabled(true)
     }
     private fun handleFailedViewState(viewState: MainContract.ViewState.Failed) {
-        btn_start.isEnabled = true
-        edt_url.isEnabled = true
+        setControlsEnabled(true)
         Toast.makeText(this, viewState.throwable.localizedMessage, Toast.LENGTH_LONG).show()
+    }
+
+    private fun setControlsEnabled(isEnabled: Boolean) {
+        btn_start.isEnabled = isEnabled
+        edt_url.isEnabled = isEnabled
     }
 }

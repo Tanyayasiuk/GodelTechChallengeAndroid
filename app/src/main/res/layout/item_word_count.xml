@@ -26,7 +26,7 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/txt_count"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="16sp"
@@ -36,12 +36,13 @@
         tools:text="1000"/>
 
     <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="?android:attr/progressBarStyleSmall"
-        app:layout_constraintStart_toEndOf="@id/guideline"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txt_count"
         app:layout_constraintTop_toTopOf="@id/txt_word"
         app:layout_constraintBottom_toBottomOf="@id/txt_word"/>
 </android.support.constraint.ConstraintLayout>

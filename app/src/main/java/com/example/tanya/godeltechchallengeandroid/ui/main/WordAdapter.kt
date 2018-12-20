@@ -10,8 +10,15 @@ import kotlinx.android.synthetic.main.item_word_count.view.*
 import javax.inject.Inject
 
 class WordAdapter @Inject constructor(): RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
+    private var items: ArrayList<Word> = ArrayList()
 
-    private var wordSet: ArrayList<Word> = ArrayList()
+    init {
+        setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return items[position].hashCode().toLong()
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): WordViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_word_count, viewGroup, false)
@@ -19,24 +26,18 @@ class WordAdapter @Inject constructor(): RecyclerView.Adapter<WordAdapter.WordVi
     }
 
     override fun getItemCount(): Int {
-         return wordSet.size
+         return items.size
     }
 
-    override fun onBindViewHolder(holder: WordViewHolder, p1: Int) {
+    override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         if (itemCount == 0) return
-        holder.bind(wordSet[p1])
+        holder.bind(items[position])
     }
 
-    fun setItems(map: MutableMap<String, Int>) {
-        map.forEach {
-            wordSet.add(Word(it.key, it.value))
-        }
+    fun setItems(items: List<Word>) {
+        this.items.clear()
+        this.items.addAll(items)
         notifyDataSetChanged()
-    }
-
-    fun addItem(word: Word) {
-        wordSet.add(word)
-        notifyItemInserted(wordSet.size)
     }
 
     inner class WordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -44,8 +45,7 @@ class WordAdapter @Inject constructor(): RecyclerView.Adapter<WordAdapter.WordVi
         fun bind(item: Word) {
             itemView.txt_word.text = item.word
             itemView.txt_count.text = item.count.toString()
-
+            itemView.progress_bar.visibility = if (item.isStillComputing) View.VISIBLE else View.INVISIBLE
         }
-
     }
 }
