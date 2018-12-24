@@ -14,7 +14,7 @@ class StartupUseCaseTest {
     private lateinit var startupUseCase: StartupUseCase
 
     @Before
-    fun setUp() {
+    fun onBefore() {
         MockitoAnnotations.initMocks(this)
         startupUseCase = StartupUseCase(applicationRepository)
     }

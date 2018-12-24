@@ -30,7 +30,7 @@ class StartPresenterTest {
 
 
     @Before
-    fun setUp() {
+    fun onBefore() {
         MockitoAnnotations.initMocks(this)
         presenter = StartPresenter(startupUseCase, TimeUnit(5000, java.util.concurrent.TimeUnit.MILLISECONDS))
         Mockito.`when`(startupUseCase.execute()).thenReturn(result)

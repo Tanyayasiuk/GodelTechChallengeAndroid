@@ -19,7 +19,7 @@ class ApplicationRepositoryTest {
     private val testValue = true
 
     @Before
-    fun setup() {
+    fun onBefore() {
         MockitoAnnotations.initMocks(this)
         applicationRepository = ApplicationRepositoryImpl(preferenceApi)
     }
