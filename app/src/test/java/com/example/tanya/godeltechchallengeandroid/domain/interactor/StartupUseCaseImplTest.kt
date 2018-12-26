@@ -1,27 +1,27 @@
 package com.example.tanya.godeltechchallengeandroid.domain.interactor
 
-import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepository
+import com.example.tanya.godeltechchallengeandroid.data.DataContract
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
-class StartupUseCaseTest {
+class StartupUseCaseImplTest {
 
     @Mock
-    private lateinit var applicationRepository: ApplicationRepository
-    private lateinit var startupUseCase: StartupUseCase
+    private lateinit var applicationRepository: DataContract.ApplicationRepository
+    private lateinit var startupUseCaseImpl: StartupUseCaseImpl
 
     @Before
     fun onBefore() {
         MockitoAnnotations.initMocks(this)
-        startupUseCase = StartupUseCase(applicationRepository)
+        startupUseCaseImpl = StartupUseCaseImpl(applicationRepository)
     }
 
     @Test
     fun onStartup_shouldUpdateApplicationRepository() {
-        startupUseCase.execute()
+        startupUseCaseImpl.execute()
             .test()
             .assertComplete()
             .assertNoErrors()

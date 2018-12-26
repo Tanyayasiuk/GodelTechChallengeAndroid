@@ -1,7 +1,7 @@
 package com.example.tanya.godeltechchallengeandroid.ui.start
 
 import com.example.tanya.godeltechchallengeandroid.RxSchedulerRule
-import com.example.tanya.godeltechchallengeandroid.domain.interactor.StartupUseCase
+import com.example.tanya.godeltechchallengeandroid.domain.interactor.StartupUseCaseImpl
 import com.example.tanya.godeltechchallengeandroid.util.TimeUnit
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
@@ -21,7 +21,7 @@ class StartPresenterTest {
     var testSchedulerRule = RxSchedulerRule()
 
     @Mock
-    private lateinit var startupUseCase: StartupUseCase
+    private lateinit var startupUseCaseImpl: StartupUseCaseImpl
     @Mock
     private lateinit var view: StartContract.View
 
@@ -32,8 +32,8 @@ class StartPresenterTest {
     @Before
     fun onBefore() {
         MockitoAnnotations.initMocks(this)
-        presenter = StartPresenter(startupUseCase, TimeUnit(5000, java.util.concurrent.TimeUnit.MILLISECONDS))
-        Mockito.`when`(startupUseCase.execute()).thenReturn(result)
+        presenter = StartPresenter(startupUseCaseImpl, TimeUnit(5000, java.util.concurrent.TimeUnit.MILLISECONDS))
+        Mockito.`when`(startupUseCaseImpl.execute()).thenReturn(result)
     }
 
     @Test
@@ -41,8 +41,8 @@ class StartPresenterTest {
         presenter.bindView(view)
         result.onNext(Unit)
 
-        verify(startupUseCase).execute()
-        verifyNoMoreInteractions(startupUseCase)
+        verify(startupUseCaseImpl).execute()
+        verifyNoMoreInteractions(startupUseCaseImpl)
 
         verify(view).navigateToHomeScreen()
         verifyNoMoreInteractions(view)
@@ -55,8 +55,8 @@ class StartPresenterTest {
         presenter.bindView(view)
         result.onError(throwable)
 
-        verify(startupUseCase).execute()
-        verifyNoMoreInteractions(startupUseCase)
+        verify(startupUseCaseImpl).execute()
+        verifyNoMoreInteractions(startupUseCaseImpl)
 
         verify(view).showError(throwable.localizedMessage)
         verifyNoMoreInteractions(view)

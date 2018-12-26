@@ -47,6 +47,7 @@ class MainActivity: DaggerAppCompatActivity(), MainContract.View {
 
     private fun handleStartedViewState(){
         setControlsEnabled(false)
+        wordAdapter.setProgressEnabled(true)
     }
 
     private fun handleResultReceivedViewState(viewState: MainContract.ViewState.ResultReceived){
@@ -55,9 +56,12 @@ class MainActivity: DaggerAppCompatActivity(), MainContract.View {
 
     private fun handleSucceedViewState() {
         setControlsEnabled(true)
+        wordAdapter.setProgressEnabled(false)
     }
+
     private fun handleFailedViewState(viewState: MainContract.ViewState.Failed) {
         setControlsEnabled(true)
+        wordAdapter.setProgressEnabled(false)
         Toast.makeText(this, viewState.throwable.localizedMessage, Toast.LENGTH_LONG).show()
     }
 

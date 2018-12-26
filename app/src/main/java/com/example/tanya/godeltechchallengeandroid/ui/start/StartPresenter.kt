@@ -1,6 +1,6 @@
 package com.example.tanya.godeltechchallengeandroid.ui.start
 
-import com.example.tanya.godeltechchallengeandroid.domain.interactor.StartupUseCase
+import com.example.tanya.godeltechchallengeandroid.domain.interactor.StartupUseCaseImpl
 import com.example.tanya.godeltechchallengeandroid.util.TimeUnit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -8,7 +8,7 @@ import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
 class StartPresenter
-@Inject constructor(private val startupUseCase: StartupUseCase,
+@Inject constructor(private val startupUseCaseImpl: StartupUseCaseImpl,
                     private val timeUnit: TimeUnit)
         : StartContract.Presenter {
 
@@ -23,7 +23,7 @@ class StartPresenter
 
     /*Imitating data loading*/
     private fun loadData() {
-        startupUseCase
+        startupUseCaseImpl
             .execute()
             .delay(timeUnit.delay, timeUnit.timeUnit)
             .observeOn(AndroidSchedulers.mainThread())

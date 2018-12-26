@@ -12,7 +12,7 @@ class TestDomainModule {
     @Provides
     fun providesDomainContractCounWordsUseCase(testApp: TestApp): DomainContract.CountWordsUseCase {
         return object : DomainContract.CountWordsUseCase {
-            override fun execute(url: String): Observable<List<Word>> {
+            override fun execute(uri: String): Observable<List<Word>> {
                 return testApp.testUseCaseDelegate.countWordsObservable!!
             }
         }

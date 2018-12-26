@@ -6,6 +6,10 @@ import io.reactivex.Observable
 interface DomainContract {
 
     interface CountWordsUseCase {
-        fun execute(url: String): Observable<List<Word>>
+        fun execute(uri: String): Observable<List<Word>>
+    }
+
+    interface StartupUseCase {
+        fun execute(input: Unit? = null): Observable<Unit>
     }
 }

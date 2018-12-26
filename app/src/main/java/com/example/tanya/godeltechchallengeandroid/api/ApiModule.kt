@@ -20,12 +20,14 @@ abstract class ApiModule {
     companion object {
         private val PREFS_NAME = "godeltechchallengeandroid_prefs"
 
-        @Provides @JvmStatic
+        @Provides
+        @JvmStatic
         fun provideSharedPreferences(context: Context): SharedPreferences {
             return context.applicationContext.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
         }
 
-        @Provides @JvmStatic
+        @Provides
+        @JvmStatic
         fun providesRestService(): RestService =
             Retrofit.Builder()
                 .baseUrl("http://www.example.com")
@@ -36,6 +38,9 @@ abstract class ApiModule {
     }
 
     @Binds
-    abstract fun bindsPreferencesApi(preferencesApiImpl: PreferencesApiImpl): PreferenceApi
+    abstract fun bindsPreferencesApi(preferencesApiImpl: PreferencesApiImpl): ApiContract.PreferenceApi
+
+    @Binds
+    abstract fun bindsTextApi(textApiImpl: TextApiImpl): ApiContract.TextApi
 
 }

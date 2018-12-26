@@ -1,7 +1,6 @@
 package com.example.tanya.godeltechchallengeandroid.data
 
-import com.example.tanya.godeltechchallengeandroid.api.PreferenceApi
-import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepository
+import com.example.tanya.godeltechchallengeandroid.api.ApiContract
 import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepositoryImpl
 import org.junit.Assert
 import org.junit.Before
@@ -13,8 +12,8 @@ import org.mockito.MockitoAnnotations
 class ApplicationRepositoryTest {
 
     @Mock
-    private lateinit var preferenceApi: PreferenceApi
-    private lateinit var applicationRepository: ApplicationRepository
+    private lateinit var preferenceApi: ApiContract.PreferenceApi
+    private lateinit var applicationRepository: DataContract.ApplicationRepository
 
     private val testValue = true
 
