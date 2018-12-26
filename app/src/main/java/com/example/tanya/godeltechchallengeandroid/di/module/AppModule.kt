@@ -4,8 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Resources
 import com.example.tanya.godeltechchallengeandroid.App
-import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepository
-import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -19,9 +17,6 @@ abstract class AppModule {
 
     @Binds
     abstract fun bindContext(application: Application): Context
-
-    @Binds
-    abstract fun bindApplicationRepository(applicationRepositoryImpl: ApplicationRepositoryImpl): ApplicationRepository
 
     @Module
     companion object {
