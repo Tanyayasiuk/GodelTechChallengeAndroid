@@ -4,10 +4,8 @@ import com.example.tanya.godeltechchallengeandroid.RxSchedulerRule
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
-import java.io.InputStream
 
 class TextApiTest {
 
@@ -19,15 +17,13 @@ class TextApiTest {
     @Rule
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
-    @Mock
-    private lateinit var inputStream: InputStream
-
     private lateinit var textApiImpl: TextApiImpl
 
-    private val text = "The geographical center The geographical center\n" +
-        "The geographical center"
+    private val text = "The. geographical, \t 'center' -the geographical center \n" +
+        "the geographical \"`center?"
 
-    private val wordsList = mutableListOf("the", "geographical", "center", "the", "geographical", "center", "the", "geographical", "center")
+    private val wordsList =
+        listOf("the", "geographical", "center", "the", "geographical", "center", "the", "geographical", "center")
 
     @Before
     fun onBefore() {
@@ -39,7 +35,6 @@ class TextApiTest {
         textApiImpl.getWordsObservable(text.byteInputStream())
             .test()
             .assertComplete()
-            //.assertValueCount(9)
             .assertValueSet(wordsList)
     }
 }

@@ -2,6 +2,7 @@ package com.example.tanya.godeltechchallengeandroid.domain.interactor
 
 import com.example.tanya.godeltechchallengeandroid.RxSchedulerRule
 import com.example.tanya.godeltechchallengeandroid.data.DataContract
+import com.example.tanya.godeltechchallengeandroid.domain.entity.Word
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
@@ -39,21 +40,26 @@ class CountWordsUseCaseImplTest {
 
     private val testUrl = "http://www.textfiles.com/humor/boston.geog"
 
+    private val listOfRawPairs = listOf(Pair("word1", 1), Pair("word2", 2))
+
+    private val listOfWords = listOf(Word("word1", 1), Word("word2", 2))
+
 
     @Before
     fun onBefore() {
         countWordsUseCaseImpl = CountWordsUseCaseImpl(fileRepository, wordCountRepository)
 
         Mockito.`when`(fileRepository.getFileInputStream(testUrl)).thenReturn(Single.just(inputStream))
-        Mockito.`when`(wordCountRepository.getWordCountsObservable(inputStream)).thenReturn(Observable.just(listOf(Pair("word1", 1))))
+        Mockito.`when`(wordCountRepository.getWordCountsObservable(inputStream))
+            .thenReturn(Observable.just(listOfRawPairs))
     }
 
     @Test
-    fun `on countWordsUseCaseImpl execute should  `() { //TODO: create proper method name
-
+    fun `on countWordsUseCaseImpl execute should return list of words and complete`() {
         countWordsUseCaseImpl.execute(testUrl)
             .test()
             .assertComplete()
+            .assertValues(listOfWords)
 
         verify(fileRepository).getFileInputStream(eq(testUrl))
         verifyNoMoreInteractions(fileRepository)
