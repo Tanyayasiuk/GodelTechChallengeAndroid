@@ -10,7 +10,7 @@ import io.reactivex.Observable
 class TestDomainModule {
 
     @Provides
-    fun providesDomainContractCounWordsUseCase(testApp: TestApp): DomainContract.CountWordsUseCase {
+    fun providesDomainContractCountWordsUseCase(testApp: TestApp): DomainContract.CountWordsUseCase {
         return object : DomainContract.CountWordsUseCase {
             override fun execute(uri: String): Observable<List<Word>> {
                 return testApp.testUseCaseDelegate.countWordsObservable!!
