@@ -1,5 +1,6 @@
 package com.example.tanya.godeltechchallengeandroid.ui.start
 
+import com.example.tanya.godeltechchallengeandroid.di.module.LOADING_TIME_UNIT
 import com.example.tanya.godeltechchallengeandroid.domain.interactor.StartupUseCaseImpl
 import com.example.tanya.godeltechchallengeandroid.util.TimeUnit
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,7 +11,7 @@ import javax.inject.Named
 
 class StartPresenter
 @Inject constructor(private val startupUseCaseImpl: StartupUseCaseImpl,
-                    @Named("time_unit") private val timeUnit: TimeUnit)
+                    @Named(LOADING_TIME_UNIT) private val timeUnit: TimeUnit)
         : StartContract.Presenter {
 
     private var view: StartContract.View? = null

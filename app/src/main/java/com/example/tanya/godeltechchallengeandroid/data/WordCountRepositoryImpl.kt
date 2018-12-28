@@ -9,8 +9,10 @@ import java.io.InputStream
 import javax.inject.Inject
 import javax.inject.Named
 
-class WordCountRepositoryImpl @Inject constructor(private val textApi: ApiContract.TextApi,
-                                                  @Named("time_span") private val timespan: TimeUnit) : DataContract.WordCountRepository {
+class WordCountRepositoryImpl @Inject constructor(
+    private val textApi: ApiContract.TextApi,
+    @Named(BUFFER_TIME_SPAN) private val timespan: TimeUnit
+) : DataContract.WordCountRepository {
 
     override fun getWordCountsObservable(inputStream: InputStream): Observable<List<Pair<String, Int>>> {
         return textApi

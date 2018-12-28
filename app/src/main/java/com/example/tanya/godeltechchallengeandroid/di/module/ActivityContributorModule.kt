@@ -15,6 +15,8 @@ import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import javax.inject.Named
 
+const val LOADING_TIME_UNIT = "LOADING_TIME_UNIT"
+
 @Module
 interface ActivityContributorModule {
 
@@ -32,7 +34,7 @@ interface ActivityContributorModule {
 
     @Module
     class StartModule {
-        @Named("time_unit")
+        @Named(LOADING_TIME_UNIT)
         @Provides
         fun provideTimeUnit(resources: Resources): TimeUnit {
             return TimeUnit(resources.getInteger(R.integer.delay).toLong(), java.util.concurrent.TimeUnit.MILLISECONDS)

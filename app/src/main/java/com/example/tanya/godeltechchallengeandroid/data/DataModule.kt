@@ -9,23 +9,24 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Named
 
-@Module
-abstract class DataModule {
+const val BUFFER_TIME_SPAN = "BUFFER_TIME_SPAN"
+
+@Module(includes = [DataModule.WordCountModule::class])
+interface DataModule {
 
     @Binds
-    abstract fun bindsToApplicationRepository(applicationRepositoryImpl: ApplicationRepositoryImpl): DataContract.ApplicationRepository
+    fun bindsToApplicationRepository(applicationRepositoryImpl: ApplicationRepositoryImpl): DataContract.ApplicationRepository
 
     @Binds
-    abstract fun bindsToFileRepository(impl: FileRepositoryImpl): DataContract.FileRepository
+    fun bindsToFileRepository(impl: FileRepositoryImpl): DataContract.FileRepository
 
     @Binds
-    abstract fun bindsToWordCountRepository(impl: WordCountRepositoryImpl): DataContract.WordCountRepository
+    fun bindsToWordCountRepository(impl: WordCountRepositoryImpl): DataContract.WordCountRepository
 
     @Module
-    companion object {
-        @Named("time_span")
+    class WordCountModule {
+        @Named(BUFFER_TIME_SPAN)
         @Provides
-        @JvmStatic
         fun providesTimeUnit(resources: Resources): TimeUnit {
             return TimeUnit(resources.getInteger(R.integer.timespan).toLong(), java.util.concurrent.TimeUnit.SECONDS)
         }

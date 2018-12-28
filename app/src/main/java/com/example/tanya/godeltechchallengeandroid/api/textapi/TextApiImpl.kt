@@ -1,5 +1,6 @@
-package com.example.tanya.godeltechchallengeandroid.api
+package com.example.tanya.godeltechchallengeandroid.api.textapi
 
+import com.example.tanya.godeltechchallengeandroid.api.ApiContract
 import io.reactivex.Observable
 import java.io.BufferedReader
 import java.io.InputStream

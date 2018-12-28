@@ -8,21 +8,19 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
+@Module(includes = [AppModule.Bindings::class])
+class AppModule {
 
-@Module
-abstract class AppModule {
-
-    @Binds
-    abstract fun bindApplication(app: App): Application
-
-    @Binds
-    abstract fun bindContext(application: Application): Context
+    @Provides
+    fun provideResources(context: Context): Resources =
+        context.resources
 
     @Module
-    companion object {
-        @Provides
-        @JvmStatic
-        fun provideResources(context: Context): Resources =
-            context.resources
+    interface Bindings {
+        @Binds
+        fun bindApplication(app: App): Application
+
+        @Binds
+        fun bindContext(application: Application): Context
     }
 }
