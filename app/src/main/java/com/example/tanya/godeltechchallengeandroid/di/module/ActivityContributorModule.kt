@@ -13,6 +13,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
+import javax.inject.Named
 
 @Module
 interface ActivityContributorModule {
@@ -31,6 +32,7 @@ interface ActivityContributorModule {
 
     @Module
     class StartModule {
+        @Named("time_unit")
         @Provides
         fun provideTimeUnit(resources: Resources): TimeUnit {
             return TimeUnit(resources.getInteger(R.integer.delay).toLong(), java.util.concurrent.TimeUnit.MILLISECONDS)

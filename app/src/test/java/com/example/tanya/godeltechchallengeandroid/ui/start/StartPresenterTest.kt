@@ -5,13 +5,14 @@ import com.example.tanya.godeltechchallengeandroid.domain.interactor.StartupUseC
 import com.example.tanya.godeltechchallengeandroid.util.TimeUnit
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
+import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.subjects.PublishSubject
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnit
+import org.mockito.junit.MockitoRule
 
 
 class StartPresenterTest {
@@ -19,6 +20,10 @@ class StartPresenterTest {
     @Rule
     @JvmField
     var testSchedulerRule = RxSchedulerRule()
+
+    @Rule
+    @JvmField
+    var mockitoRule: MockitoRule = MockitoJUnit.rule()
 
     @Mock
     private lateinit var startupUseCaseImpl: StartupUseCaseImpl
@@ -31,9 +36,8 @@ class StartPresenterTest {
 
     @Before
     fun onBefore() {
-        MockitoAnnotations.initMocks(this)
         presenter = StartPresenter(startupUseCaseImpl, TimeUnit(5000, java.util.concurrent.TimeUnit.MILLISECONDS))
-        Mockito.`when`(startupUseCaseImpl.execute()).thenReturn(result)
+        whenever(startupUseCaseImpl.execute()).thenReturn(result)
     }
 
     @Test

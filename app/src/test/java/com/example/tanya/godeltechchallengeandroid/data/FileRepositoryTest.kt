@@ -5,6 +5,7 @@ import com.example.tanya.godeltechchallengeandroid.api.rest.RestService
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
+import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Single
 import okhttp3.ResponseBody
 import okio.BufferedSource
@@ -12,7 +13,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 import retrofit2.HttpException
@@ -52,9 +52,9 @@ class FileRepositoryTest {
 
     @Test
     fun `given restService returns success on getFileInputStream method call it should complete`() {
-        Mockito.`when`(responseBody.source()).thenReturn(bufferedSource)
-        Mockito.`when`(bufferedSource.inputStream()).thenReturn(inputStream)
-        Mockito.`when`(restService.downloadFile(testUri))
+        whenever(responseBody.source()).thenReturn(bufferedSource)
+        whenever(bufferedSource.inputStream()).thenReturn(inputStream)
+        whenever(restService.downloadFile(testUri))
             .thenReturn(Single.just(Response.success(responseBody)))
 
         fileRepository.getFileInputStream(testUri)
@@ -67,7 +67,7 @@ class FileRepositoryTest {
 
     @Test
     fun `given restService returns error on getFileInputStream method call it should complete with error`() {
-        Mockito.`when`(restService.downloadFile(testUri))
+        whenever(restService.downloadFile(testUri))
             .thenReturn(Single.just(Response.error<ResponseBody>(400, responseBody)))
 
         fileRepository.getFileInputStream(testUri)

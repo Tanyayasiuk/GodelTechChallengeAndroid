@@ -6,13 +6,13 @@ import com.example.tanya.godeltechchallengeandroid.domain.entity.Word
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
+import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 import java.io.InputStream
@@ -49,8 +49,8 @@ class CountWordsUseCaseImplTest {
     fun onBefore() {
         countWordsUseCaseImpl = CountWordsUseCaseImpl(fileRepository, wordCountRepository)
 
-        Mockito.`when`(fileRepository.getFileInputStream(testUrl)).thenReturn(Single.just(inputStream))
-        Mockito.`when`(wordCountRepository.getWordCountsObservable(inputStream))
+        whenever(fileRepository.getFileInputStream(testUrl)).thenReturn(Single.just(inputStream))
+        whenever(wordCountRepository.getWordCountsObservable(inputStream))
             .thenReturn(Observable.just(listOfRawPairs))
     }
 

@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import javax.inject.Inject
 
 class PreferencesApiImpl
-@Inject constructor(private val preferences: SharedPreferences): ApiContract.PreferenceApi{
+@Inject constructor(private val preferences: SharedPreferences) : ApiContract.PreferenceApi {
 
     override fun getBoolean(key: String, defaultValue: Boolean): Boolean {
         return preferences.getBoolean(key, defaultValue)

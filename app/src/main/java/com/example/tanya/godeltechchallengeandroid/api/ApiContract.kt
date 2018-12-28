@@ -6,7 +6,6 @@ import java.io.InputStream
 interface ApiContract {
 
     interface PreferenceApi {
-
         fun getBoolean(key: String, defaultValue: Boolean = false): Boolean
         fun setBoolean(key: String, value: Boolean)
     }

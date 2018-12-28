@@ -1,13 +1,19 @@
 package com.example.tanya.godeltechchallengeandroid.domain.interactor
 
 import com.example.tanya.godeltechchallengeandroid.data.DataContract
+import com.nhaarman.mockito_kotlin.verify
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnit
+import org.mockito.junit.MockitoRule
 
 class StartupUseCaseImplTest {
+
+    @Rule
+    @JvmField
+    var mockitoRule: MockitoRule = MockitoJUnit.rule()
 
     @Mock
     private lateinit var applicationRepository: DataContract.ApplicationRepository
@@ -15,7 +21,6 @@ class StartupUseCaseImplTest {
 
     @Before
     fun onBefore() {
-        MockitoAnnotations.initMocks(this)
         startupUseCaseImpl = StartupUseCaseImpl(applicationRepository)
     }
 
@@ -26,6 +31,6 @@ class StartupUseCaseImplTest {
             .assertComplete()
             .assertNoErrors()
 
-        Mockito.verify(applicationRepository).isFirstStart
+        verify(applicationRepository).isFirstStart
     }
 }

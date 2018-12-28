@@ -1,7 +1,6 @@
 package com.example.tanya.godeltechchallengeandroid.data
 
 import com.example.tanya.godeltechchallengeandroid.api.ApiContract
-import com.example.tanya.godeltechchallengeandroid.util.Timespan
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
@@ -45,7 +44,7 @@ class WordCountRepositoryTest {
     fun onBefore() {
         whenever(textApi.getWordsObservable(eq(inputStream))).thenReturn(wordsOfTextObservable)
 
-        wordCountRepositoryImpl = WordCountRepositoryImpl(textApi, Timespan(0, TimeUnit.SECONDS))
+        wordCountRepositoryImpl = WordCountRepositoryImpl(textApi, com.example.tanya.godeltechchallengeandroid.util.TimeUnit(0, TimeUnit.SECONDS))
     }
 
     @Test

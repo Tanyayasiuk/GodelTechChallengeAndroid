@@ -1,20 +1,21 @@
 package com.example.tanya.godeltechchallengeandroid.data
 
 import com.example.tanya.godeltechchallengeandroid.api.ApiContract
-import com.example.tanya.godeltechchallengeandroid.util.Timespan
+import com.example.tanya.godeltechchallengeandroid.util.TimeUnit
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import java.io.InputStream
 import javax.inject.Inject
+import javax.inject.Named
 
 class WordCountRepositoryImpl @Inject constructor(private val textApi: ApiContract.TextApi,
-                                                  private val timespan: Timespan) : DataContract.WordCountRepository {
+                                                  @Named("time_span") private val timespan: TimeUnit) : DataContract.WordCountRepository {
 
     override fun getWordCountsObservable(inputStream: InputStream): Observable<List<Pair<String, Int>>> {
         return textApi
             .getWordsObservable(inputStream)
-            .buffer(timespan.timespan, timespan.timeUnit)
+            .buffer(timespan.delay, timespan.timeUnit)
             .lift { observer ->
                 object : Observer<List<String>> {
 

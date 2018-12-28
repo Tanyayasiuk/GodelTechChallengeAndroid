@@ -6,6 +6,7 @@ import com.example.tanya.godeltechchallengeandroid.domain.entity.Word
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
+import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
@@ -16,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Matchers.anyString
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 
@@ -53,9 +53,9 @@ class MainPresenterTest {
         countWordsSubject = BehaviorSubject.create()
         startButtonClickedSubject = PublishSubject.create()
 
-        Mockito.`when`(countWordsUseCase.execute(anyString())).thenReturn(countWordsSubject)
-        Mockito.`when`(view.getStartButtonClickObservable()).thenReturn(startButtonClickedSubject)
-        Mockito.`when`(view.getUrlChangeObservable()).thenReturn(Observable.just(TEST_URL))
+        whenever(countWordsUseCase.execute(anyString())).thenReturn(countWordsSubject)
+        whenever(view.getStartButtonClickObservable()).thenReturn(startButtonClickedSubject)
+        whenever(view.getUrlChangeObservable()).thenReturn(Observable.just(TEST_URL))
 
         presenter = MainPresenter(countWordsUseCase)
         presenter.bindView(view)
@@ -72,13 +72,16 @@ class MainPresenterTest {
     @Test
     fun `given useCase does nothing on start button click should set Started viewState`() {
         startButtonClickedSubject.onNext(Any())
+
         verify(view).setViewState(eq(MainContract.ViewState.Started))
     }
 
     @Test
     fun `given useCase returns words on start button click should set ResultReceived viewState`() {
         countWordsSubject.onNext(testWords)
+
         startButtonClickedSubject.onNext(Any())
+
         verify(view).setViewState(eq(MainContract.ViewState.Started))
         verify(view).setViewState(MainContract.ViewState.ResultReceived(testWords))
     }
@@ -86,7 +89,9 @@ class MainPresenterTest {
     @Test
     fun `given useCase returns throwable on start button click should set Failed viewState`() {
         countWordsSubject.onError(testThrowable)
+
         startButtonClickedSubject.onNext(Any())
+
         verify(view).setViewState(eq(MainContract.ViewState.Started))
         verify(view).setViewState(MainContract.ViewState.Failed(testThrowable))
     }
@@ -94,7 +99,9 @@ class MainPresenterTest {
     @Test
     fun `given useCase completes should set Completed viewState`() {
         countWordsSubject.onComplete()
+
         startButtonClickedSubject.onNext(Any())
+
         verify(view).setViewState(eq(MainContract.ViewState.Started))
         verify(view).setViewState(MainContract.ViewState.Completed)
     }

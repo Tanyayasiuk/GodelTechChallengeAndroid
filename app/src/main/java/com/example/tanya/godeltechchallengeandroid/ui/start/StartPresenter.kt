@@ -6,10 +6,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
+import javax.inject.Named
 
 class StartPresenter
 @Inject constructor(private val startupUseCaseImpl: StartupUseCaseImpl,
-                    private val timeUnit: TimeUnit)
+                    @Named("time_unit") private val timeUnit: TimeUnit)
         : StartContract.Presenter {
 
     private var view: StartContract.View? = null

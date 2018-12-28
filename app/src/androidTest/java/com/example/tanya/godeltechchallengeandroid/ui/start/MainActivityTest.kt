@@ -23,7 +23,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
 
-
 class MainActivityTest {
 
     private val rxJavaIdlingResourceTestRule = RxJavaIdlingResourceTestRule()
@@ -47,9 +46,8 @@ class MainActivityTest {
 
     @Test
     fun givenUseCaseReturnsWords_should() {
-        val word1 = Word("word1", 1, true)
-        val word2 = Word("word2", 2, false)
-
+        val word1 = Word("word1", 1)
+        val word2 = Word("word2", 2)
         givenUseCase(Observable.just(listOf(word1, word2)))
 
         onView(withId(R.id.edt_url)).perform(typeText("text"))
@@ -113,8 +111,8 @@ class MainActivityTest {
                     } else {
                         return viewHolder.itemView.let {
                             it.txt_word.text == word.word &&
-                                it.txt_count.text == word.count.toString() &&
-                                it.progress_bar.visibility == if (word.isStillComputing) View.VISIBLE else View.INVISIBLE
+                                it.txt_count.text == word.count.toString()
+                                //it.progress_bar.visibility == if (word.isStillComputing) View.VISIBLE else View.INVISIBLE
                         }
                     }
                 } else {
