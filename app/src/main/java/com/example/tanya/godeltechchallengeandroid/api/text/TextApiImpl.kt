@@ -1,4 +1,4 @@
-package com.example.tanya.godeltechchallengeandroid.api.textapi
+package com.example.tanya.godeltechchallengeandroid.api.text
 
 import com.example.tanya.godeltechchallengeandroid.api.ApiContract
 import io.reactivex.Observable

@@ -1,7 +1,7 @@
 package com.example.tanya.godeltechchallengeandroid.api
 
 import com.example.tanya.godeltechchallengeandroid.RxSchedulerRule
-import com.example.tanya.godeltechchallengeandroid.api.textapi.TextApiImpl
+import com.example.tanya.godeltechchallengeandroid.api.text.TextApiImpl
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
