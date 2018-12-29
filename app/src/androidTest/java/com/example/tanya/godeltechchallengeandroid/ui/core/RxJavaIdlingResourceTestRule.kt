@@ -1,4 +1,4 @@
-package com.example.tanya.godeltechchallengeandroid.ui.start
+package com.example.tanya.godeltechchallengeandroid.ui.core
 
 import androidx.test.espresso.IdlingRegistry
 import io.reactivex.Scheduler
@@ -10,7 +10,9 @@ import org.junit.runners.model.Statement
 class RxJavaIdlingResourceTestRule : TestRule {
 
     override fun apply(base: Statement?, description: Description?): Statement {
-        return RxJavaIdlingResourceStatement(base)
+        return RxJavaIdlingResourceStatement(
+            base
+        )
     }
 
     private class RxJavaIdlingResourceStatement(private val statement: Statement?) : Statement() {
@@ -27,7 +29,10 @@ class RxJavaIdlingResourceTestRule : TestRule {
         }
 
         private fun wrap(scheduler: Scheduler): Scheduler {
-            return DelegatingIdlingResourceScheduler(scheduler, scheduler::class.java.simpleName).apply {
+            return DelegatingIdlingResourceScheduler(
+                scheduler,
+                scheduler::class.java.simpleName
+            ).apply {
                 IdlingRegistry.getInstance().register(this)
             }
         }

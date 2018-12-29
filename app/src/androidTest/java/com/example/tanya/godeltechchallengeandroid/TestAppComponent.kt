@@ -1,9 +1,11 @@
-package com.example.tanya.godeltechchallengeandroid.ui.start
+package com.example.tanya.godeltechchallengeandroid
 
-import com.example.tanya.godeltechchallengeandroid.App
-import com.example.tanya.godeltechchallengeandroid.api.ApiModule
+import com.example.tanya.godeltechchallengeandroid.api.TestApiModule
+import com.example.tanya.godeltechchallengeandroid.dagger.TestScope
 import com.example.tanya.godeltechchallengeandroid.di.module.AppModule
+import com.example.tanya.godeltechchallengeandroid.domain.DomainModule
 import com.example.tanya.godeltechchallengeandroid.ui.UiModule
+import com.example.tanya.godeltechchallengeandroid.ui.core.ApiMocksControllerSubcomponent
 import dagger.Binds
 import dagger.Component
 import dagger.Module
@@ -12,17 +14,22 @@ import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
+@TestScope
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
         TestBindings::class,
         AppModule::class,
-        ApiModule::class,
-        TestDomainModule::class,
-        UiModule::class
+        TestApiModule::class,
+        DomainModule::class,
+        UiModule::class,
+        ApiMocksControllerSubcomponentModule::class
     ]
 )
 interface TestAppComponent : AndroidInjector<TestApp> {
+
+    fun apiMocksControllerSubcomponentBuilder(): ApiMocksControllerSubcomponent.Builder
+
     @Component.Builder
     abstract class Builder : AndroidInjector.Builder<TestApp>()
 }
@@ -32,5 +39,8 @@ interface TestBindings {
     @Binds
     fun bindsToApp(testApp: TestApp): App
 }
+
+@Module(subcomponents = [ApiMocksControllerSubcomponent::class])
+class ApiMocksControllerSubcomponentModule
 
 

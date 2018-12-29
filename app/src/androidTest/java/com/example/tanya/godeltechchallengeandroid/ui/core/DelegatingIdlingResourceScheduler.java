@@ -1,4 +1,4 @@
-package com.example.tanya.godeltechchallengeandroid.ui.start;
+package com.example.tanya.godeltechchallengeandroid.ui.core;
 
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.tanya.godeltechchallengeandroid.ui.start;
+package com.example.tanya.godeltechchallengeandroid.ui.core;
 
 import androidx.test.espresso.IdlingResource;
 import io.reactivex.Scheduler;
