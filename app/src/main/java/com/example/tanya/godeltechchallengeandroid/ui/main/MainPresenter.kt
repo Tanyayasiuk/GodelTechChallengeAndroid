@@ -10,8 +10,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MainPresenter
-    @Inject constructor(private val countWordsUseCase: DomainContract.CountWordsUseCase)
-    : MainContract.Presenter {
+@Inject constructor(private val countWordsUseCase: DomainContract.CountWordsUseCase) : MainContract.Presenter {
 
     private var view: MainContract.View? = null
     private val disposables = CompositeDisposable()
@@ -21,7 +20,7 @@ class MainPresenter
 
         view.getStartButtonClickObservable()
             .withLatestFrom(view.getUrlChangeObservable()) { _, url -> url }
-            .flatMap {url ->
+            .flatMap { url ->
                 countWordsUseCase
                     .execute(url)
                     .subscribeOn(Schedulers.io())

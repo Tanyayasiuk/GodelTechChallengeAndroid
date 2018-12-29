@@ -72,7 +72,7 @@ class MainActivityTest : IntegrationTest(MainActivity::class.java) {
                     } else {
                         return viewHolder.itemView.let {
                             it.txt_word.text == word.word &&
-                                    it.txt_count.text == word.count.toString()
+                                it.txt_count.text == word.count.toString()
                         }
                     }
                 } else {

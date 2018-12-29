@@ -11,15 +11,15 @@ interface MainContract {
         fun setViewState(viewState: ViewState)
     }
 
-    interface Presenter{
+    interface Presenter {
         fun bindView(view: View)
         fun destroy()
     }
 
     sealed class ViewState {
-        object Started: ViewState()
-        data class ResultReceived(val words: List<Word>): ViewState()
-        data class Failed(val throwable: Throwable): ViewState()
-        object Completed: ViewState()
+        object Started : ViewState()
+        data class ResultReceived(val words: List<Word>) : ViewState()
+        data class Failed(val throwable: Throwable) : ViewState()
+        object Completed : ViewState()
     }
 }

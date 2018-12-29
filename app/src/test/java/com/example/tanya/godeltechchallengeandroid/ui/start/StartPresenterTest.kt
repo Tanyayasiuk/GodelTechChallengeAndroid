@@ -14,7 +14,6 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 
-
 class StartPresenterTest {
 
     @Rule

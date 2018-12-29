@@ -6,7 +6,8 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 open class StartupUseCaseImpl
-@Inject constructor(private val applicationRepository: DataContract.ApplicationRepository) : DomainContract.StartupUseCase {
+@Inject constructor(private val applicationRepository: DataContract.ApplicationRepository) :
+    DomainContract.StartupUseCase {
 
     override fun execute(input: Unit?): Observable<Unit> {
         return Observable.fromCallable {
