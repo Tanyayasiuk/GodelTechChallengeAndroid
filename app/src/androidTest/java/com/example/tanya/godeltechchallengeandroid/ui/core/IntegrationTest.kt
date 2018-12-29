@@ -1,6 +1,8 @@
 package com.example.tanya.godeltechchallengeandroid.ui.core
 
 import android.app.Activity
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.intent.rule.IntentsTestRule
@@ -9,13 +11,14 @@ import androidx.test.espresso.matcher.ViewMatchers
 import com.example.tanya.godeltechchallengeandroid.TestApp
 import org.hamcrest.Matchers
 import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.rules.RuleChain
+import javax.inject.Inject
 
 abstract class IntegrationTest(activityClass: Class<out Activity>) {
 
-    protected val apiMocksController: ApiMocksController = ApiMocksController()
+    @Inject
+    protected lateinit var apiMocksController: ApiMocksController
 
     private val rxJavaIdlingResourceTestRule = RxJavaIdlingResourceTestRule()
 
@@ -27,8 +30,11 @@ abstract class IntegrationTest(activityClass: Class<out Activity>) {
 
     @Before
     fun onBefore() {
-        getTestApp().apiMocksControllerSubcomponent.inject(apiMocksController)
-        apiMocksController.onBefore()
+        if (!this::apiMocksController.isInitialized) {
+            getTestApp().testAppComponent.inject(this)
+        } else {
+            apiMocksController.onBefore()
+        }
     }
 
     private fun getTestApp(): TestApp {
@@ -43,5 +49,14 @@ abstract class IntegrationTest(activityClass: Class<out Activity>) {
         Espresso.onView(ViewMatchers.withText(expectedText))
             .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.`is`(getActivity().window.decorView))))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    companion object {
+        init {
+            System.setProperty(
+                "org.mockito.android.target",
+                ApplicationProvider.getApplicationContext<Context>().cacheDir.path
+            )
+        }
     }
 }

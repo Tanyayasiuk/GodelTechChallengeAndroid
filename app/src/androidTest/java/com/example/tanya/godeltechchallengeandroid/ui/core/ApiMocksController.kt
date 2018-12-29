@@ -9,26 +9,25 @@ import okio.BufferedSource
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito
 import retrofit2.Response
+import javax.inject.Inject
 
-class ApiMocksController {
+class ApiMocksController @Inject constructor(private val restService: RestService) {
 
-    lateinit var restService: RestService
-
-    fun onBefore(){
+    fun onBefore() {
         Mockito.reset(restService)
     }
 
-    fun givenRestServiceReturnsNothing(){
+    fun givenRestServiceReturnsNothing() {
         whenever(restService.downloadFile(anyString())).thenReturn(Single.create<Response<ResponseBody>> {
             //does nothing
         })
     }
 
-    fun givenRestServiceReturnsError(throwable: Throwable){
+    fun givenRestServiceReturnsError(throwable: Throwable) {
         whenever(restService.downloadFile(anyString())).thenReturn(Single.error(throwable))
     }
 
-    fun givenRestServiceReturnsResult(string: String){
+    fun givenRestServiceReturnsResult(string: String) {
         val responseBody = mock<ResponseBody>()
         val bufferedSource = mock<BufferedSource>()
         val result = Single.just(Response.success(responseBody))
