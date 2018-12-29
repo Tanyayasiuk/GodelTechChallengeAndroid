@@ -1,4 +1,4 @@
-package com.example.tanya.godeltechchallengeandroid.ui.start
+package com.example.tanya.godeltechchallengeandroid.ui.main
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -10,7 +10,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import com.example.tanya.godeltechchallengeandroid.R
 import com.example.tanya.godeltechchallengeandroid.domain.entity.Word
 import com.example.tanya.godeltechchallengeandroid.ui.core.IntegrationTest
-import com.example.tanya.godeltechchallengeandroid.ui.main.MainActivity
 import kotlinx.android.synthetic.main.item_word_count.view.*
 import org.hamcrest.BaseMatcher
 import org.hamcrest.Description
@@ -41,7 +40,7 @@ class MainActivityTest : IntegrationTest(MainActivity::class.java) {
         onView(withId(R.id.edt_url)).perform(typeText("text"))
         onView(withId(R.id.btn_start)).perform(click())
 
-        onView(withId(R.id.rv_words_counts)).check(matches(allOf(withWord(0, word1), withWord(1, word2))))
+        onView(withId(R.id.rv_words_counts)).check(matches(allOf(withWord(0, word2), withWord(1, word1))))
         onView(withId(R.id.edt_url)).check(matches(allOf(isEnabled(), withText("text"))))
         onView(withId(R.id.btn_start)).check(matches(isEnabled()))
     }

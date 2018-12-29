@@ -29,7 +29,7 @@ abstract class IntegrationTest(activityClass: Class<out Activity>) {
     val ruleChain = RuleChain.outerRule(rxJavaIdlingResourceTestRule).around(intentsTestRule)
 
     @Before
-    fun onBefore() {
+    open fun onBefore() {
         if (!this::apiMocksController.isInitialized) {
             getTestApp().testAppComponent.inject(this)
         } else {

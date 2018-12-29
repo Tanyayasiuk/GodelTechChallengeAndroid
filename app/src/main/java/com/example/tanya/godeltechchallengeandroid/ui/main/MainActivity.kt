@@ -10,10 +10,12 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity: DaggerAppCompatActivity(), MainContract.View {
+class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
-    @Inject lateinit var presenter: MainPresenter
-    @Inject lateinit var wordAdapter: WordAdapter
+    @Inject
+    lateinit var presenter: MainPresenter
+    @Inject
+    lateinit var wordAdapter: WordAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,9 @@ class MainActivity: DaggerAppCompatActivity(), MainContract.View {
 
     override fun getUrlChangeObservable(): Observable<String> {
         return RxTextView.textChanges(edt_url).map { it.toString() }
+            .map {
+                if (it.isBlank()) edt_url.hint.toString() else it
+            }
     }
 
     override fun getStartButtonClickObservable(): Observable<Any> {
@@ -45,12 +50,12 @@ class MainActivity: DaggerAppCompatActivity(), MainContract.View {
         super.onDestroy()
     }
 
-    private fun handleStartedViewState(){
+    private fun handleStartedViewState() {
         setControlsEnabled(false)
         wordAdapter.setProgressEnabled(true)
     }
 
-    private fun handleResultReceivedViewState(viewState: MainContract.ViewState.ResultReceived){
+    private fun handleResultReceivedViewState(viewState: MainContract.ViewState.ResultReceived) {
         wordAdapter.setItems(viewState.words)
     }
 
