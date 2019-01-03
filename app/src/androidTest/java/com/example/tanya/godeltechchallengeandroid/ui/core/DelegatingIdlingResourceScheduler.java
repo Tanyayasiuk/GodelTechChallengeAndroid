@@ -1,12 +1,12 @@
-package com.example.tanya.godeltechchallengeandroid.ui.start;
-
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
+package com.example.tanya.godeltechchallengeandroid.ui.core;
 
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 final class DelegatingIdlingResourceScheduler extends IdlingResourceScheduler {
     private final Scheduler delegate;
@@ -98,7 +98,9 @@ final class DelegatingIdlingResourceScheduler extends IdlingResourceScheduler {
 
     void stopWork() {
         if (work.decrementAndGet() == 0) {
-            callback.onTransitionToIdle();
+            if (callback != null) {
+                callback.onTransitionToIdle();
+            }
         }
     }
 

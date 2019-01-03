@@ -3,4 +3,6 @@
     <dimen name="margin_default_8dp">8dp</dimen>
     <dimen name="margin_default_16dp">16dp</dimen>
     <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="padding_default_8dp">8dp</dimen>
+    <dimen name="padding_default_16dp">16dp</dimen>
 </resources>

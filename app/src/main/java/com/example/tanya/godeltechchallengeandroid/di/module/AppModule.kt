@@ -4,31 +4,23 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Resources
 import com.example.tanya.godeltechchallengeandroid.App
-import com.example.tanya.godeltechchallengeandroid.api.ApiModule
-import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepository
-import com.example.tanya.godeltechchallengeandroid.data.prefs.ApplicationRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
+@Module(includes = [AppModule.Bindings::class])
+class AppModule {
 
-@Module(includes = [ApiModule::class])
-abstract class AppModule {
-
-    @Binds
-    abstract fun bindApplication(app: App): Application
-
-    @Binds
-    abstract fun bindContext(application: Application): Context
-
-    @Binds
-    abstract fun bindApplicationRepository(applicationRepositoryImpl: ApplicationRepositoryImpl): ApplicationRepository
+    @Provides
+    fun provideResources(context: Context): Resources =
+        context.resources
 
     @Module
-    companion object {
-        @Provides @JvmStatic
-        fun provideResources(context: Context): Resources =
-                context.resources
-    }
+    interface Bindings {
+        @Binds
+        fun bindApplication(app: App): Application
 
+        @Binds
+        fun bindContext(application: Application): Context
+    }
 }
